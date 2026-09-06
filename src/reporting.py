@@ -1,7 +1,7 @@
 """
 reporting.py
 
-Produce a console report (and optional CSV if you extend).
+Produce a console report (and optional CSV).
 """
 
 from typing import List, Dict, Any
@@ -22,7 +22,6 @@ def print_report(results: List[Dict[str, Any]], alerts: List[Dict[str, Any]], wr
     print(f"Warning alerts: {warnings}")
     print(f"Critical alerts: {criticals}")
     print("-"*60)
-    # Per-device brief
     for r in results:
         host = r["hostname"]
         status = r.get("status")
@@ -46,7 +45,6 @@ def print_report(results: List[Dict[str, Any]], alerts: List[Dict[str, Any]], wr
 
 def write_csv_report(results: List[Dict[str, Any]], alerts: List[Dict[str, Any]], path: Path):
     path.parent.mkdir(parents=True, exist_ok=True)
-    # Determine highest severity per device
     sev_map = {}
     for a in alerts:
         dev = a["device"]

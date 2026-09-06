@@ -36,7 +36,6 @@ def generate_alerts(results: List[Dict[str, Any]], thresholds: Dict[str, Any]) -
             alerts.append(_make_alert(SEVERITY_CRITICAL, host, "availability", r.get("status"), "UP",
                                       "Verify device power, management network, or console access"))
             continue
-        # CPU
         cpu = r.get("cpu")
         if cpu is not None:
             if cpu >= cpu_c:
@@ -45,7 +44,6 @@ def generate_alerts(results: List[Dict[str, Any]], thresholds: Dict[str, Any]) -
             elif cpu >= cpu_w:
                 alerts.append(_make_alert(SEVERITY_WARNING, host, "cpu", cpu, cpu_w,
                                           "Monitor CPU usage; check routes and recent changes"))
-        # Memory
         mem = r.get("memory")
         if mem is not None:
             if mem >= mem_c:
@@ -54,7 +52,6 @@ def generate_alerts(results: List[Dict[str, Any]], thresholds: Dict[str, Any]) -
             elif mem >= mem_w:
                 alerts.append(_make_alert(SEVERITY_WARNING, host, "memory", mem, mem_w,
                                           "Monitor memory; reduce load"))
-        # Latency
         lat = r.get("latency_ms")
         if lat is not None:
             if lat >= lat_c:
@@ -63,7 +60,6 @@ def generate_alerts(results: List[Dict[str, Any]], thresholds: Dict[str, Any]) -
             elif lat >= lat_w:
                 alerts.append(_make_alert(SEVERITY_WARNING, host, "latency_ms", lat, lat_w,
                                           "Monitor latency; review path/trend"))
-        # Packet loss
         pl = r.get("packet_loss")
         if pl is not None:
             if pl >= pl_c:
@@ -72,7 +68,6 @@ def generate_alerts(results: List[Dict[str, Any]], thresholds: Dict[str, Any]) -
             elif pl >= pl_w:
                 alerts.append(_make_alert(SEVERITY_WARNING, host, "packet_loss", pl, pl_w,
                                           "Monitor for increasing packet loss; check counters"))
-        # Interfaces
         for iface in r.get("interfaces", []):
             if iface.get("status") != "UP":
                 alerts.append(_make_alert(SEVERITY_CRITICAL, host, f"interface::{iface.get('name')}", iface.get("status"), "UP",

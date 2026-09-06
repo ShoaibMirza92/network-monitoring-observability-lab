@@ -3,6 +3,7 @@ monitor.py
 
 Load config, simulate monitoring results deterministically (seeded),
 and produce structured monitoring results for alerts and reporting.
+
 Run as module:
   python -m src.monitor
 """
@@ -60,7 +61,6 @@ def simulate_metrics_for_device(rng: random.Random, device: Dict[str, Any], thre
             "packet_loss": None,
             "latency_ms": None
         }
-    # Device is UP, simulate metrics
     dtype = device.get("device_type", "").lower()
     if dtype == "router":
         cpu_base = 25
@@ -82,9 +82,7 @@ def simulate_metrics_for_device(rng: random.Random, device: Dict[str, Any], thre
     cpu = round(max(0.0, min(100.0, rng.gauss(cpu_base, cpu_base*0.3))), 1)
     memory = round(max(0.0, min(100.0, rng.gauss(mem_base, mem_base*0.25))), 1)
     interfaces = simulate_interface_statuses(rng, device.get("interfaces", []), iface_down_prob)
-    # packet loss small by default, but occasional spikes
     packet_loss = round(max(0.0, rng.gauss(0.1, 1.0)), 2)
-    # latency around base plus jitter
     latency = max(1, int(rng.gauss(lat_base, lat_base*0.25)))
     return {
         "hostname": device["hostname"],
@@ -101,13 +99,6 @@ def simulate_metrics_for_device(rng: random.Random, device: Dict[str, Any], thre
     }
 
 def run_monitor(seed: int = 12345) -> Dict[str, Any]:
-    """
-    Returns dict with keys:
-      - devices: list of device dicts as loaded
-      - thresholds: thresholds dict
-      - results: list of per-device metric dicts
-    Deterministic when seed provided.
-    """
     devices = load_devices()
     thresholds = load_thresholds()
     rng = random.Random(seed)
@@ -122,11 +113,9 @@ def main():
     except Exception as e:
         print(f"Monitoring run failed: {e}", file=sys.stderr)
         sys.exit(2)
-    # Print summary to console
-    from src import alerts, reporting  # local import to avoid circular issues
+    from src import alerts, reporting
     alerts_list = alerts.generate_alerts(payload["results"], payload["thresholds"])
     reporting.print_report(payload["results"], alerts_list)
-    # Optionally write CSV (reporting handles output)
     return 0
 
 if __name__ == "__main__":
