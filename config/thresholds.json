@@ -1,0 +1,8 @@
+{
+  "cpu": {"warning": 75.0, "critical": 90.0},
+  "memory": {"warning": 80.0, "critical": 90.0},
+  "latency_ms": {"warning": 100.0, "critical": 200.0},
+  "packet_loss": {"warning": 2.0, "critical": 5.0},
+  "interface_down_prob": 0.02,
+  "device_down_prob": 0.03
+}

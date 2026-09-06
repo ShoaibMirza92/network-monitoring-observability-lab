@@ -1,0 +1,56 @@
+[
+  {
+    "hostname": "CORE-RTR-01",
+    "management_ip": "10.10.1.1",
+    "device_type": "router",
+    "location": "HQ",
+    "environment": "production",
+    "status": "unknown",
+    "interfaces": ["Gi0/0","Gi0/1","Gi0/2"]
+  },
+  {
+    "hostname": "CORE-SW-01",
+    "management_ip": "10.10.1.2",
+    "device_type": "switch",
+    "location": "HQ",
+    "environment": "production",
+    "status": "unknown",
+    "interfaces": ["Gi1/0/1","Gi1/0/2","Gi1/0/3"]
+  },
+  {
+    "hostname": "DIST-SW-01",
+    "management_ip": "10.10.2.10",
+    "device_type": "switch",
+    "location": "Floor-1",
+    "environment": "production",
+    "status": "unknown",
+    "interfaces": ["Gi1/0/1","Gi1/0/2"]
+  },
+  {
+    "hostname": "EDGE-RTR-01",
+    "management_ip": "192.168.10.1",
+    "device_type": "router",
+    "location": "Edge",
+    "environment": "production",
+    "status": "unknown",
+    "interfaces": ["Gig0/0","Gig0/1"]
+  },
+  {
+    "hostname": "FIREWALL-01",
+    "management_ip": "172.16.10.1",
+    "device_type": "firewall",
+    "location": "Perimeter",
+    "environment": "production",
+    "status": "unknown",
+    "interfaces": ["eth0","eth1"]
+  },
+  {
+    "hostname": "ACCESS-SW-01",
+    "management_ip": "10.10.3.5",
+    "device_type": "switch",
+    "location": "Floor-2",
+    "environment": "production",
+    "status": "unknown",
+    "interfaces": ["Gi1/0/1","Gi1/0/2","Gi1/0/3","Gi1/0/4"]
+  }
+]
